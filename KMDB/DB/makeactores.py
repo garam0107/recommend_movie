@@ -14,8 +14,17 @@ TMDB_API_KEY ='5fd7a43ce2aa11c0b6d86d8111209b54'
 def get_word_datas():
     for i in range(1, 500):
         request_url = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
+        response = requests.get(request_url)
+        if response.status_code != 200:
+            print(f"Failed to fetch data from {request_url}, Status code: {response.status_code}")
+            continue
 
-        movies = requests.get(request_url).json()
+        try:
+            movies = response.json()
+        except json.JSONDecodeError:
+            print(f"JSON decode error for URL: {request_url}")
+            continue
+        # movies = requests.get(request_url).json()
 
         for movie in movies['results']:  #영화 각각의 정보
            
@@ -31,7 +40,7 @@ def get_word_datas():
                
                 cnt +=1
                 if person.get('known_for_department') != 'Acting': continue  #배우정보만
-                if cnt ==5: break  # 전체 배우 받아올땐 주석처리
+                # if cnt ==5: break  # 전체 배우 받아올땐 주석처리
                 actors.append(person['id'])
                 pk_actor_list.append(person['id'])
                 make_actor_list.append([person['name'],person['profile_path']])
