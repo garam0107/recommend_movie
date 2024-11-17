@@ -7,7 +7,7 @@ TMDB_API_KEY ='5fd7a43ce2aa11c0b6d86d8111209b54'
 
 
 def get_movie_datas():
-    for i in range(1, 110):
+    for i in range(1, 500):
         request_url = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
         
         movies = requests.get(request_url).json()
@@ -27,6 +27,8 @@ def get_movie_datas():
                     'poster_path': movie['poster_path'],
                     'backdrop_path': movie['backdrop_path'],
                     'genres': movie['genre_ids'],
+                    'youtbe_key' : '',
+                    'actors' : []
                 }
 
                 data = {
