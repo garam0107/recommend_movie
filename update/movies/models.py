@@ -1,10 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-
-# Create your models here.
-
 class Actor(models.Model):
     name = models.CharField(max_length=50)
     poster_path = models.CharField(max_length=200, blank= True, null= True)
